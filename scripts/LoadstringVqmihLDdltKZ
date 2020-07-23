@@ -1,0 +1,36 @@
+local player = game.Players.LocalPlayer
+local mouse = player:GetMouse()
+bind = "p"
+mouse.KeyDown:connect(function(key)
+local heartbeat = game:GetService("RunService").Heartbeat
+spawn(function()
+    while true do heartbeat:Wait()
+        game.Players.LocalPlayer.MaximumSimulationRadius = math.pow(math.huge,math.huge)*math.huge
+        sethiddenproperty(game.Players.LocalPlayer,"SimulationRadius",math.pow(math.huge,math.huge)*math.huge)
+        game:GetService("RunService").Stepped:wait()
+    end
+end)
+local plates = game.Workspace:GetChildren()
+local wobblies = {}
+for index, plate in ipairs(plates) do
+    if plate.Name == "Wobbly" then
+        table.insert(wobblies, plate)
+    end
+end
+wobblies[1].Transparency = 0.8
+wobblies[2].Transparency = 0.8
+wobblies[3].Transparency = 0.8
+
+local function bring()
+while true do
+wobblies[1].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,4,0)
+wobblies[2].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,4,0)
+wobblies[3].CFrame = game.Players.LocalPlayer.Character.HumanoidRootPart.CFrame + Vector3.new(0,4,0)
+wait()
+end
+end
+
+if key == bind then
+   spawn(bring) 
+end
+end)
