@@ -1,0 +1,224 @@
+local library = loadstring(game:HttpGet(('https://pastebin.com/raw/pHkD89Nh')))()
+local w = library:CreateWindow("Mew#5661")
+local b = w:CreateFolder("Pistol Modder")
+local a = w:CreateFolder("Pistol Modder Cont.")
+local c = w:CreateFolder("Lazy")
+local player = game.Players.LocalPlayer
+
+b:Toggle("Automatic",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.Auto = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.Auto = false
+    end
+end)
+
+b:Toggle("Flaming Ammo",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.FlamingBullet = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.FlamingBullet = false
+    end
+end)
+
+b:Toggle("Camera Shake",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.CameraShakeEnabled = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.CameraShakeEnabled = false
+    end
+end)
+
+b:Toggle("Explosive Ammo",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.ExplosiveEnabled = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.ExplosiveEnabled = false
+    end
+end)
+
+b:Slider("Radius",200,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Radius = value
+end)
+
+b:Toggle("Sniper Enabled",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.SniperEnabled = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.SniperEnabled = false
+    end
+end)
+
+b:Slider("FOV",50,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.FieldOfView = value
+end)
+
+b:Toggle("Shotgun Enabled",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.ShotgunEnabled = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.ShotgunEnabled = false
+    end
+end)
+
+b:Slider("Bullets Per Shot",100,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.BulletPerShot = value
+end)
+
+b:Toggle("Burst Enabled",function(bool)
+    shared.toggle = bool
+    if shared.toggle == true then
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.BurstFireEnabled = true
+    else
+        player.Character.Humanoid:UnequipTools()
+        wait(0.5)
+        local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+        settings.BurstFireEnabled = false
+    end
+end)
+
+b:Slider("Bullets Per Burst",100,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.BulletPerBurst = value
+end)
+
+a:Slider("Base Damage",100,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.BaseDamage = value
+end)
+
+a:Slider("Bullet Speed",100,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.BulletSpeed = value
+end)
+
+a:Slider("Reload Time",5,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.ReloadTime = value - 1
+end)
+
+a:Slider("Spread",11,function(value) --MaxValue
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Spread = (value - 1) / 10
+end)
+
+a:Box("Ammo Per Clip","number",function(value) -- "number" or "string"
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.AmmoPerClip = value
+end)
+
+a:Box("Clips","number",function(value) -- "number" or "string"
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Clips = value
+end)
+
+a:Box("Max Clips","number",function(value) -- "number" or "string"
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.MaxClip = value
+end)
+
+a:Box("Knockback","number",function(value) -- "number" or "string"
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Knockback = value
+end)
+
+a:Box("Lifesteal","number",function(value) -- "number" or "string"
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Lifesteal = value
+end)
+
+a:Box("Piercing","number",function(value) -- "number" or "string"
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Piercing = value
+end)
+
+c:Button("God Pistol",function()
+    player.Character.Humanoid:UnequipTools()
+    wait(0.5)
+    local settings = require(game:GetService("Players").LocalPlayer.Backpack.Handgun.Setting)
+    settings.Auto = true
+    settings.BaseDamage = 10
+    settings.FireRate = 0.01
+    settings.FlamingBullet = true
+    settings.AmmoPerClip = math.huge
+    settings.Clips = math.huge
+    settings.MaxClips = math.huge
+    settings.ExplosiveEnabled = true
+    player.Character.Humanoid:EquipTool(player.Backpack.Handgun)
+end)
