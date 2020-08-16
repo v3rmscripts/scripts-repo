@@ -1,0 +1,770 @@
+-- UI Library
+local lib = {}
+local folders = {}
+
+function lib:Window(name,x,y)
+    globalX = x
+    globalY = y
+    local MyLib = Instance.new("ScreenGui")
+    local Main = Instance.new("Frame")
+    local WindowName = Instance.new("TextLabel")
+    local ScriptsWindow = Instance.new("Frame")
+    local FolderWindow = Instance.new("Frame")
+    local Container = Instance.new("ScrollingFrame")
+    local UIListLayout = Instance.new("UIListLayout")
+    local Dropshadow = Instance.new("ImageLabel")
+    local ExitButton = Instance.new("TextButton")   
+    
+    MyLib.Name = "Interface"
+    MyLib.Parent = game.CoreGui
+    MyLib.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+    
+    Main.Name = "Main"
+    Main.Parent = MyLib
+    Main.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    Main.BorderSizePixel = 0
+    Main.Position = UDim2.new(0.236842111, 0, 0.246963561, 0)
+    Main.Size = UDim2.new(0, x, 0, y)
+    Main.ZIndex = 2
+    Main.Draggable = true
+    Main.Active = true
+    Main.Selectable = true
+    
+    WindowName.Name = "WindowName"
+    WindowName.Parent = Main
+    WindowName.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    WindowName.BorderColor3 = Color3.fromRGB(19, 19, 19)
+    WindowName.Position = UDim2.new(0.00200000009, 0, 0.00499999989, 0)
+    WindowName.Size = UDim2.new(0, x-3, 0, 27)
+    WindowName.Font = Enum.Font.SourceSansSemibold
+    WindowName.Text = "  " .. name
+    WindowName.TextColor3 = Color3.fromRGB(255, 255, 255)
+    WindowName.TextSize = 20.000
+    WindowName.TextXAlignment = "Left"
+    
+    ExitButton.Parent = game.CoreGui.Interface.Main.WindowName
+    ExitButton.BackgroundColor3 = Color3.fromRGB(126, 24, 24)
+    ExitButton.Position = UDim2.new(1, -22, 0, 4)
+    ExitButton.Size = UDim2.new(0, 18, 0, 18)
+    ExitButton.Text = ""
+    ExitButton.BorderSizePixel = 0
+    ExitButton.MouseButton1Down:Connect(function()
+        MyLib:Destroy()
+        script:Destroy()
+    end)
+    
+    ScriptsWindow.Name = "ScriptsWindow"
+    ScriptsWindow.Parent = Main
+    ScriptsWindow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ScriptsWindow.BackgroundTransparency = 1
+    ScriptsWindow.BorderSizePixel = 0
+    ScriptsWindow.Position = UDim2.new(1, 0, 1, 0)
+    ScriptsWindow.Size = UDim2.new(0, x-125, 0, y-30)
+    ScriptsWindow.AnchorPoint = Vector2.new(1,1)
+    
+    FolderWindow.Name = "FolderWindow"
+    FolderWindow.Parent = Main
+    FolderWindow.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+    FolderWindow.BackgroundTransparency = 0.800
+    FolderWindow.BorderColor3 = Color3.fromRGB(33, 33, 33)
+    FolderWindow.BorderSizePixel = 0
+    FolderWindow.Position = UDim2.new(0, 0, 1, 0)
+    FolderWindow.Size = UDim2.new(0, 125, 0, y-29)
+    FolderWindow.AnchorPoint = Vector2.new(0,1)
+    
+    Container.Name = "Container"
+    Container.Parent = FolderWindow
+    Container.BackgroundColor3 = Color3.fromRGB(225,225,225)
+    Container.BackgroundTransparency = 1
+    Container.BorderColor3 = Color3.fromRGB(33, 33, 33)
+    Container.BorderSizePixel = 0
+    Container.Position = UDim2.new(0, 0, 0, 0+5)
+    Container.Size = UDim2.new(0, 125, 0, y-39)
+    Container.AnchorPoint = Vector2.new(0,0)
+    Container.ScrollBarImageColor3 = Color3.fromRGB(13, 13, 13)
+    Container.ScrollBarThickness = 4
+    
+    UIListLayout.Parent = Container
+    UIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Center
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0, 4)
+    
+    Dropshadow.Name = "Dropshadow"
+    Dropshadow.Parent = Main
+    Dropshadow.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    Dropshadow.BackgroundTransparency = 1.000
+    Dropshadow.Position = UDim2.new(0, -3, 0, -3)
+    Dropshadow.Size = UDim2.new(0, x+6, 0, y+6)
+    Dropshadow.ZIndex = 0
+    Dropshadow.Image = "rbxassetid://3570695787"
+    Dropshadow.ImageColor3 = Color3.fromRGB(33, 33, 33)
+    Dropshadow.ImageTransparency = 0.400
+    Dropshadow.ScaleType = Enum.ScaleType.Slice
+    Dropshadow.SliceCenter = Rect.new(100, 100, 100, 100)
+    Dropshadow.SliceScale = 0.040
+    Dropshadow.AnchorPoint = Vector2.new(0, 0)
+end
+function lib:Folder(name)
+    local FolderButton = Instance.new("TextButton")
+    local ScrollingFrame = Instance.new("ScrollingFrame")
+    local UIListLayout = Instance.new("UIListLayout")
+
+    FolderButton.Name = "FolderButton"
+    FolderButton.Parent = game.CoreGui.Interface.Main.FolderWindow.Container
+    FolderButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    FolderButton.BorderColor3 = Color3.fromRGB(23, 23, 23)
+    FolderButton.Position = UDim2.new(0.0120967738, 0, 0, 0)
+    FolderButton.Size = UDim2.new(0, 110, 0, 30)
+    FolderButton.Font = Enum.Font.SourceSans
+    FolderButton.Text = name
+    FolderButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    FolderButton.TextSize = 18.000
+    FolderButton.MouseButton1Down:Connect(function()
+        for index, frame in ipairs(folders) do
+            frame.Visible = false
+        end
+        ScrollingFrame.Visible = true
+    end)
+    
+    ScrollingFrame.Parent = game.CoreGui.Interface.Main.ScriptsWindow
+    ScrollingFrame.Active = true
+    ScrollingFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    ScrollingFrame.BackgroundTransparency = 1
+    ScrollingFrame.BorderSizePixel = 0
+    ScrollingFrame.Position = UDim2.new(0, 3, 0, 5)
+    ScrollingFrame.Size = UDim2.new(0, globalX-131, 0, globalY-38)
+    ScrollingFrame.AnchorPoint = Vector2.new(0,0)
+    ScrollingFrame.ScrollBarImageColor3 = Color3.fromRGB(13, 13, 13)
+    ScrollingFrame.ScrollBarThickness = 8
+    ScrollingFrame.Name = name
+    
+    UIListLayout.Parent = ScrollingFrame
+    UIListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    UIListLayout.Padding = UDim.new(0,8)
+    
+    table.insert(folders, ScrollingFrame)
+    for index, frame in ipairs(folders) do
+        frame.Visible = false
+    end
+    folders[1].Visible = true
+    
+    FolderButton.Parent.CanvasSize = UDim2.new(0, 0, 0, FolderButton.Parent.UIListLayout.AbsoluteContentSize.Y + 4)
+end
+function lib:Button(folder,name,callback)
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextButton = Instance.new("TextButton")
+    local callback = callback or function() end
+    
+    Frame.Parent = game.CoreGui.Interface.Main.ScriptsWindow[folder]
+    Frame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    Frame.Position = UDim2.new(0, 0, 0, 0)
+    Frame.Size = UDim2.new(0, globalX-143, 0, 35)
+    Frame.BorderSizePixel = 1
+    Frame.BorderColor3 = Color3.fromRGB(19,19,19)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Size = UDim2.new(0, 100, 0, 35)
+    TextLabel.Position = UDim2.new(0, 5, 0, 0)
+    TextLabel.Font = Enum.Font.SourceSansLight
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 16.000
+    TextLabel.TextXAlignment = "Left"
+    TextLabel.Text = name
+    
+    TextButton.Parent = Frame
+    TextButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    TextButton.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    TextButton.Position = UDim2.new(1, -103.5, 0, 4.5)
+    TextButton.Size = UDim2.new(0, 100, 0, 28)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextSize = 14.000
+    TextButton.Text = ""
+    TextButton.MouseButton1Down:Connect(callback)
+    
+    Frame.Parent.CanvasSize = UDim2.new(0, 0, 0, Frame.Parent.UIListLayout.AbsoluteContentSize.Y + 8)
+    if (Frame.Parent.UIListLayout.AbsoluteContentSize.Y <= globalY-38) then
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Center"
+    else
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Left"
+    end
+end
+function lib:Box(folder,name,callback)
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextBox = Instance.new("TextBox")
+    local Constraint = Instance.new("UITextSizeConstraint")
+    local callback = callback or function() end
+    
+    Frame.Parent = game.CoreGui.Interface.Main.ScriptsWindow[folder]
+    Frame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    Frame.Position = UDim2.new(0, 0, 0, 0)
+    Frame.Size = UDim2.new(0, globalX-143, 0, 35)
+    Frame.BorderSizePixel = 1
+    Frame.BorderColor3 = Color3.fromRGB(19,19,19)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Size = UDim2.new(0, 100, 0, 35)
+    TextLabel.Position = UDim2.new(0, 5, 0, 0)
+    TextLabel.Font = Enum.Font.SourceSansLight
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 16.000
+    TextLabel.TextXAlignment = "Left"
+    TextLabel.Text = name
+    
+    TextBox.Parent = Frame
+    TextBox.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    TextBox.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    TextBox.Position = UDim2.new(1, -103.5, 0, 4.5)
+    TextBox.Size = UDim2.new(0, 100, 0, 28)
+    TextBox.Font = Enum.Font.SourceSans
+    TextBox.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextBox.TextSize = 14.000
+    TextBox.Text = ""
+    TextBox.TextScaled = true
+    
+    TextBox.FocusLost:Connect(function()
+        pcall(callback, TextBox.Text)
+    end)
+    
+    Constraint.Parent = TextBox
+    Constraint.MaxTextSize = 16
+    
+    Frame.Parent.CanvasSize = UDim2.new(0, 0, 0, Frame.Parent.UIListLayout.AbsoluteContentSize.Y + 8)
+    if (Frame.Parent.UIListLayout.AbsoluteContentSize.Y <= globalY-38) then
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Center"
+    else
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Left"
+    end
+end
+function lib:Slider(folder,name,minvalue,maxvalue,callback)
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextButton = Instance.new("TextButton")
+    local Frame2 = Instance.new("Frame")
+    local TextLabel2 = Instance.new("TextLabel")
+    local callback = callback or function() end
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local uis = game:GetService("UserInputService")
+    local Value;
+    
+    Frame.Parent = game.CoreGui.Interface.Main.ScriptsWindow[folder]
+    Frame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    Frame.Position = UDim2.new(0, 0, 0, 0)
+    Frame.Size = UDim2.new(0, globalX-143, 0, 35)
+    Frame.BorderSizePixel = 1
+    Frame.BorderColor3 = Color3.fromRGB(19,19,19)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Size = UDim2.new(0, 100, 0, 35)
+    TextLabel.Position = UDim2.new(0, 5, 0, 0)
+    TextLabel.Font = Enum.Font.SourceSansLight
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 16.000
+    TextLabel.TextXAlignment = "Left"
+    TextLabel.Text = name
+    
+    TextButton.Parent = Frame
+    TextButton.AnchorPoint = Vector2.new(1, 0)
+    TextButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    TextButton.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    TextButton.Position = UDim2.new(1, -4, 0.5, -5)
+    TextButton.Size = UDim2.new(0, 150, 0, 10)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = ""
+    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextSize = 14.000
+    TextButton.AutoButtonColor = false
+    
+    Frame2.Parent = TextButton
+    Frame2.BackgroundColor3 = Color3.fromRGB(18, 18, 18)
+    Frame2.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    Frame2.BorderSizePixel = 0
+    Frame2.Position = UDim2.new(0, 0, 0.5, -5)
+    Frame2.Size = UDim2.new(0, 0, 0, 10)
+    Frame2.ZIndex = 2
+    
+    TextLabel2.Parent = TextButton
+    TextLabel2.AnchorPoint = Vector2.new(1, 0)
+    TextLabel2.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel2.BackgroundTransparency = 1.000
+    TextLabel2.BorderSizePixel = 0
+    TextLabel2.Position = UDim2.new(0, -10, 1, -16)
+    TextLabel2.Size = UDim2.new(0, 50, 0, 20)
+    TextLabel2.Font = Enum.Font.SourceSans
+    TextLabel2.Text = "0"
+    TextLabel2.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel2.TextSize = 14.000
+    TextLabel2.TextStrokeColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel2.TextXAlignment = Enum.TextXAlignment.Right
+
+    TextButton.MouseButton1Down:Connect(function()
+        Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 150) * Frame2.AbsoluteSize.X) + tonumber(minvalue)) or 0
+        pcall(function()
+            TextLabel2.Text = Value
+            callback(Value)
+        end)
+        Frame2.Size = UDim2.new(0, math.clamp(mouse.X - Frame2.AbsolutePosition.X, 0, 150), 0, 10)
+        moveconnection = mouse.Move:Connect(function()
+            TextLabel2.Text = Value
+            Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 150) * Frame2.AbsoluteSize.X) + tonumber(minvalue))
+            pcall(function()
+                TextLabel2.Text = Value
+                callback(Value)
+            end)
+            Frame2.Size = UDim2.new(0, math.clamp(mouse.X - Frame2.AbsolutePosition.X, 0, 150), 0, 10)
+        end)
+        releaseconnection = uis.InputEnded:Connect(function(Mouse)
+            if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
+                Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 150) * Frame2.AbsoluteSize.X) + tonumber(minvalue))
+                pcall(function()
+                    TextLabel2.Text = Value
+                    callback(Value)
+                end)
+                Frame2.Size = UDim2.new(0, math.clamp(mouse.X - Frame2.AbsolutePosition.X, 0, 150), 0, 10)
+                moveconnection:Disconnect()
+                releaseconnection:Disconnect()
+            end
+        end)
+    end)
+    
+    Frame.Parent.CanvasSize = UDim2.new(0, 0, 0, Frame.Parent.UIListLayout.AbsoluteContentSize.Y + 8)
+    if (Frame.Parent.UIListLayout.AbsoluteContentSize.Y <= globalY-38) then
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Center"
+    else
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Left"
+    end
+end
+function lib:Toggle(folder,name,callback)
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextButton = Instance.new("TextButton")
+    local callback = callback or function() end
+    local toggled = false
+    
+    Frame.Parent = game.CoreGui.Interface.Main.ScriptsWindow[folder]
+    Frame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    Frame.Position = UDim2.new(0, 0, 0, 0)
+    Frame.Size = UDim2.new(0, globalX-143, 0, 35)
+    Frame.BorderSizePixel = 1
+    Frame.BorderColor3 = Color3.fromRGB(19,19,19)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Size = UDim2.new(0, 100, 0, 35)
+    TextLabel.Position = UDim2.new(0, 5, 0, 0)
+    TextLabel.Font = Enum.Font.SourceSansLight
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 16.000
+    TextLabel.TextXAlignment = "Left"
+    TextLabel.Text = name
+    
+    TextButton.Parent = Frame
+    TextButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    TextButton.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    TextButton.Position = UDim2.new(1, -31.5, 0, 4.5)
+    TextButton.Size = UDim2.new(0, 28, 0, 28)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.TextColor3 = Color3.fromRGB(0, 0, 0)
+    TextButton.TextSize = 14.000
+    TextButton.Text = ""
+    TextButton.MouseButton1Down:Connect(function()
+        if toggled then
+            toggled = false
+            TextButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+        else
+            toggled = true
+            TextButton.BackgroundColor3 = Color3.fromRGB(24, 126, 24)
+        end
+        pcall(callback, toggled)
+    end)
+    
+    Frame.Parent.CanvasSize = UDim2.new(0, 0, 0, Frame.Parent.UIListLayout.AbsoluteContentSize.Y + 8)
+    if (Frame.Parent.UIListLayout.AbsoluteContentSize.Y <= globalY-38) then
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Center"
+    else
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Left"
+    end
+end
+function lib:Keybind(folder,name,key,callback)
+    local Frame = Instance.new("Frame")
+    local TextLabel = Instance.new("TextLabel")
+    local TextButton = Instance.new("TextButton")
+    local callback = callback or function() end
+    local toggled = false
+    local UserInputService = game:GetService("UserInputService")
+    
+    Frame.Parent = game.CoreGui.Interface.Main.ScriptsWindow[folder]
+    Frame.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+    Frame.Position = UDim2.new(0, 0, 0, 0)
+    Frame.Size = UDim2.new(0, globalX-143, 0, 35)
+    Frame.BorderSizePixel = 1
+    Frame.BorderColor3 = Color3.fromRGB(19,19,19)
+    
+    TextLabel.Parent = Frame
+    TextLabel.BackgroundTransparency = 1
+    TextLabel.Size = UDim2.new(0, 100, 0, 35)
+    TextLabel.Position = UDim2.new(0, 5, 0, 0)
+    TextLabel.Font = Enum.Font.SourceSansLight
+    TextLabel.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextLabel.TextSize = 16.000
+    TextLabel.TextXAlignment = "Left"
+    TextLabel.Text = name
+    
+    TextButton.Parent = Frame
+    TextButton.BackgroundColor3 = Color3.fromRGB(33, 33, 33)
+    TextButton.BorderColor3 = Color3.fromRGB(18, 18, 18)
+    TextButton.Position = UDim2.new(1, -31, 0, 4)
+    TextButton.Size = UDim2.new(0, 28, 0, 28)
+    TextButton.Font = Enum.Font.SourceSans
+    TextButton.Text = UserInputService:GetStringForKeyCode(key)
+    TextButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+    TextButton.TextSize = 16.000
+    game:GetService("UserInputService").InputBegan:Connect(function(input)
+        if input.KeyCode == key then
+            pcall(callback)
+        end
+    end)
+    
+    Frame.Parent.CanvasSize = UDim2.new(0, 0, 0, Frame.Parent.UIListLayout.AbsoluteContentSize.Y + 8)
+    if (Frame.Parent.UIListLayout.AbsoluteContentSize.Y <= globalY-50) then
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Center"
+    else
+        Frame.Parent.UIListLayout.HorizontalAlignment = "Left"
+    end
+end
+
+-- Initialize UI
+
+if game.CoreGui:FindFirstChild("Interface") then
+    game.CoreGui.Interface:Destroy()
+end
+
+local state = false
+local currentTab
+function toggleGui(inputObject, gameProcessedEvent)
+    if inputObject.KeyCode == Enum.KeyCode.RightControl then
+        if state then
+            game.CoreGui.Interface.Enabled = true
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.8
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.8
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.8
+            game.CoreGui.Interface.Main.FolderWindow.BackgroundTransparency = 0.8
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.8
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.6
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.6
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.6
+            game.CoreGui.Interface.Main.Dropshadow.ImageTransparency = 0.6
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.6
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.4
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.4
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.4
+            game.CoreGui.Interface.Main.Dropshadow.ImageTransparency = 0.4
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.4
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0
+            currentTab.Visible = true
+            for index, button in ipairs(game.CoreGui.Interface.Main.FolderWindow.Container:GetChildren()) do
+                if button.Name == "FolderButton" then
+                    button.BackgroundTransparency = 1
+                    button.TextTransparency = 1
+                    wait()
+                    button.BackgroundTransparency = 0.5
+                    button.TextTransparency = 0.5
+                    wait()
+                    button.BackgroundTransparency = 0
+                    button.TextTransparency = 0
+                end
+            end
+            state = false
+        else
+            for index, button in ipairs(game.CoreGui.Interface.Main.FolderWindow.Container:GetChildren()) do
+                if button.Name == "FolderButton" then
+                    button.BackgroundTransparency = 0.3
+                    button.TextTransparency = 0.3
+                    wait()
+                    button.BackgroundTransparency = 0.7
+                    button.TextTransparency = 0.7
+                    wait()
+                    button.BackgroundTransparency = 1
+                    button.TextTransparency = 1
+                end
+            end
+            for index, frame in ipairs(folders) do
+                if frame.Visible == true then
+                    currentTab = frame
+                end
+                frame.Visible = false
+            end
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.2
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.2
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.2
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.2
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.4
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.4
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.4
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.4
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.6
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.6
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.6
+            game.CoreGui.Interface.Main.Dropshadow.ImageTransparency = 0.6
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.6
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 0.8
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 0.8
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 0.8
+            game.CoreGui.Interface.Main.Dropshadow.ImageTransparency = 0.8
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 0.8
+            wait()
+            game.CoreGui.Interface.Main.BackgroundTransparency = 1
+            game.CoreGui.Interface.Main.WindowName.BackgroundTransparency = 1
+            game.CoreGui.Interface.Main.WindowName.TextTransparency = 1
+            game.CoreGui.Interface.Main.Dropshadow.ImageTransparency = 1
+            game.CoreGui.Interface.Main.FolderWindow.BackgroundTransparency = 1
+            game.CoreGui.Interface.Main.WindowName.TextButton.BackgroundTransparency = 1
+            game.CoreGui.Interface.Enabled = false
+            state = true
+        end
+    end
+end
+game:GetService("UserInputService").InputBegan:connect(toggleGui)
+
+-- Build UI
+
+lib:Window("Fortress Tycoon GUI", 500, 250)
+
+lib:Folder("Player")
+lib:Slider("Player", "Walk Speed", 16, 100, function(value)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = value
+end)
+lib:Slider("Player", "Jump Power", 50, 200, function(value)
+    game.Players.LocalPlayer.Character.Humanoid.JumpPower = value
+end)
+lib:Toggle("Player", "Noclip", function(toggled)
+    local function NoclipLoop()
+		if game.Players.LocalPlayer.Character ~= nil then
+	   		for _, child in pairs(game.Players.LocalPlayer.Character:GetDescendants()) do
+				if child:IsA("BasePart") and child.CanCollide == true then
+	   				child.CanCollide = false
+				end
+			end
+		end
+	end
+    if toggled then
+        Noclipping = game:GetService('RunService').Stepped:connect(NoclipLoop)
+    else
+        Noclipping:Disconnect()
+    end
+end)
+lib:Button("Player", "Invincibility", function()
+    local function ffUnhandler()
+        while true do
+            wait()
+            if game:GetService("Players").LocalPlayer.PlayerGui:FindFirstChild("FFHandler") then
+                game:GetService("Players").LocalPlayer.PlayerGui.FFHandler:Destroy()
+            end
+        end
+    end
+    spawn(ffUnhandler)
+    game.Players.LocalPlayer.Character.Humanoid.Health = 0
+end)
+
+lib:Folder("Gameplay")
+lib:Button("Gameplay", "Remove Doors", function()
+    local function doorKiller()
+        while true do
+            for i, thing in ipairs(game.Workspace:GetDescendants()) do
+                if thing.Name == "ColorBrick1" and thing:FindFirstChild("DoorScript") then
+                    thing:Destroy()
+                end
+            end
+            wait(5)
+        end
+    end
+    spawn(doorKiller)
+end)
+lib:Button("Gameplay", "Mod Weapons", function()
+    local function modWeapon(weapon)
+    local settings = require(weapon.Setting)
+    
+    if weapon:FindFirstChild("GunScriptLocal") then
+        settings["BaseDamage"] = 100
+        settings["FireRate"] = 0
+        settings["Spread"] = 0
+        settings["Auto"] = true
+        settings["ExplosiveEnabled"] = true
+    end
+    if weapon:FindFirstChild("SwordScriptLocal") then
+        settings["Damage"] = 100
+        settings["AttackSpeed"] = 0
+        settings["Speed"] = 30
+        end
+    end
+    
+    game.Players.LocalPlayer.Character.Humanoid:UnequipTools()
+    
+    local weapons = game:GetService("Players").LocalPlayer.Backpack:GetChildren()
+    for i, weapon in ipairs(weapons) do
+        if weapon.ClassName == "Tool" then
+            modWeapon(weapon)
+        end
+    end
+end)
+lib:Button("Gameplay", "Take All Towers", function()
+    local towers = game:GetService("Workspace").Towers:GetDescendants()
+    for i, tower in ipairs(towers) do
+        if tower.Name == "Base" then
+            wait(0.5)
+            firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, tower, 0)
+        end
+    end
+end)
+
+lib:Folder("Spawning")
+lib:Button("Spawning", "Print Tutorial (Click button then press F9)", function()
+    print("How to use the item & money spawner.")
+    print("-------------------------------------")
+    print("")
+    print("You can either enter a money amount or an item name in this box. Below is a list of paid and crate exclusive items.")
+    print("You can use this with the items in your tycoon as well but there's no point because you can just get money and buy them.")
+    print("")
+    print("")
+    print("Paid Items:")
+    print("")
+    print("Rainbow Pistol")
+    print("Rainbow Sword")
+    print("Rainbow SMG")
+    print("Rainbow Shotgun")
+    print("Rainbow Assault Rifle")
+    print("Rainbow Sniper Rifle")
+    print("Camo Pistol")
+    print("Camo Sword")
+    print("Camo SMG")
+    print("Camo Shotgun")
+    print("Camo Assault Rifle")
+    print("Camo Sniper Rifle")
+    print("Revolver")
+    print("Tommy Gun")
+    print("Laser Gun")
+    print("Minigun")
+    print("")
+    print("Crate Items:")
+    print("")
+    print("Luger")
+    print("Knife")
+    print("Dagger")
+    print("Hand Crossbow")
+    print(".44 Magnum")
+    print("Katana")
+    print("Spiked Club")
+    print("Healing Orb")
+    print("Ray Gun")
+    print("Venom Shank")
+    print("Blunderbuss")
+    print("Laser Blaster")
+    print("Illumina")
+    print("Shock Cannon")
+    print("Laser Scythe")
+    print("Atomic Handgun")
+    print("Photon Repeater")
+    print("Darkheart")
+    print("Fusion Coil")
+    print("Frying Pan")
+end)
+lib:Box("Spawning", "Entry Box", function(text)
+    local function spawn(thing)
+        local crate = game.Workspace.Crates:GetChildren()[1]
+        firetouchinterest(game.Players.LocalPlayer.Character.HumanoidRootPart, crate, 0)
+        wait(0.5)
+        local key = game.Players.LocalPlayer.PlayerGui.Crates[crate.Name].Key.Value
+        game.ReplicatedStorage.CrateRewardEvent:FireServer(thing, key)
+    end
+    
+    spawn(text)
+end)
+
+lib:Folder("Killing")
+lib:Box("Killing", "Kill Player", function(text)
+    local target = text
+    if game.Workspace:FindFirstChild(target) then
+        if game.Workspace[target]:FindFirstChild("Humanoid") then
+            if game.Workspace[target]:FindFirstChild("ForceField") then
+                game.ReplicatedStorage.RemoveForceFieldEvent:FireServer(game.Workspace[target].ForceField)
+            end
+            game.ReplicatedStorage.Hit:FireServer(game.Workspace[target].Humanoid, "", 100)
+        end
+    end
+end)
+lib:Button("Killing", "Kill All", function()
+    local players = game.Players:GetPlayers()
+    for i, player in ipairs(players) do
+        target = player.Name
+        
+        if game.Workspace:FindFirstChild(target) and target ~= game.Players.LocalPlayer.Name then
+            if game.Workspace[target]:FindFirstChild("ForceField") then
+                game.ReplicatedStorage.RemoveForceFieldEvent:FireServer(game.Workspace[target].ForceField)
+            end
+            game.ReplicatedStorage.Hit:FireServer(game.Workspace[target].Humanoid, "", 100)
+        end
+    end
+end)
+lib:Toggle("Killing", "Kill All (Loop)", function(toggled)
+    local function killLoop()
+		local players = game.Players:GetPlayers()
+        for i, player in ipairs(players) do
+            target = player.Name
+            
+            if game.Workspace:FindFirstChild(target) and target ~= game.Players.LocalPlayer.Name then
+                if game.Workspace[target]:FindFirstChild("Humanoid") then
+                    if game.Workspace[target]:FindFirstChild("ForceField") then
+                        game.ReplicatedStorage.RemoveForceFieldEvent:FireServer(game.Workspace[target].ForceField)
+                    end
+                    game.ReplicatedStorage.Hit:FireServer(game.Workspace[target].Humanoid, "", 100)
+                end
+            end
+        end
+	end
+    if toggled then
+        killing = game:GetService('RunService').Stepped:connect(killLoop)
+    else
+        killing:Disconnect()
+    end
+end)
+lib:Toggle("Killing", "Kill Aura", function(toggled)
+    local me = game.Players.LocalPlayer.Character.HumanoidRootPart
+    local function auraLoop()
+		local range = 40
+		local players = game.Players:GetPlayers()
+        for i, player in ipairs(players) do
+            if player.Name ~= game.Players.LocalPlayer.Name then
+                if game.Workspace:FindFirstChild(player.Name) and game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name) then
+                    local magnitude = (me.Position - player.Character.HumanoidRootPart.Position).Magnitude
+                    if magnitude < range then
+                        if game.Workspace[player.Name]:FindFirstChild("ForceField") then
+                            game.ReplicatedStorage.RemoveForceFieldEvent:FireServer(game.Workspace[player.Name].ForceField)
+                        end
+                        if game.Workspace[player.Name]:FindFirstChild("Humanoid") then
+                            game.ReplicatedStorage.Hit:FireServer(game.Workspace[player.Name].Humanoid, "", 100)
+                        end
+                    end
+                end
+            end
+        end
+	end
+    if toggled then
+        aura = game:GetService('RunService').Stepped:connect(auraLoop)
+    else
+        aura:Disconnect()
+    end
+end)
